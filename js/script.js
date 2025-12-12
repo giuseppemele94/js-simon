@@ -80,6 +80,23 @@ answerUser.addEventListener("submit", function (e) {
         userNumbers.push(value);
     }
     //console.log(userNumbers); 
+    answerUser.reset(); 
+
+    //devo confrontare userNumbers con random numbers 
+    //creo un array che conterrà i numeri indovinati 
+    const guessNumber = []; 
+
+    //confronto i numeri inseriti dall'utente con i numeri generati 
+    for(let i = 0; i < userNumbers.length ; ++i) {
+
+        // se il numero è presente nei numeri casuali 
+        
+        if(randomNumber.includes(userNumbers[i])) {
+            //lo inserisco nell aarray guessNumber 
+            guessNumber.push(userNumbers[i]); 
+        }
+    }
+    //console.log(guessNumber); 
 });
 
 // funzione per creare un array di numeri univoci
