@@ -1,46 +1,62 @@
 //seleziono l'elemento di output 
-const myCountDown = document.getElementById("countdown"); 
+const myCountDown = document.getElementById("countdown");
 
 //seleziono la lista dove verranno mostrati i numeri da visualizzare
-const numberList = document.getElementById("numbers-list"); 
+const numberList = document.getElementById("numbers-list");
 
 //creo un array di 5 numeri casuali univoci tra 1 e 50
-const randomNumber = getArrRadnomNumInRangeTotEl(1,50,5); 
+const randomNumber = getArrRadnomNumInRangeTotEl(1, 50, 5);
 
+//seleziono asnwer-form dove l'utente dovrà inserire i numeri
+const answerUser = document.getElementById("answers-form");
+
+// seleziono instructions 
+const instructionsString = document.getElementById("instructions");
 //stringa vuota che conterrà tutti i <li>
-let listItems = ""; 
+let listItems = "";
 
 //stampa dei numeri in pagina 
-for(let i =0; i < randomNumber.length ; ++i) {
+for (let i = 0; i < randomNumber.length; ++i) {
 
     //aggiungo ogni numero alla stringa 
     listItems += `<li>${randomNumber[i]}</li>`;
 }
 //inserisco tutti i <li> nella ul 
-numberList.innerHTML = listItems; 
-
+numberList.innerHTML = listItems;
 
 
 //variabile di inizio conteggio 
-let seconds = 30 ; 
+let seconds = 30;
 
 //inserisco output aggiornato secondi 
-myCountDown.innerHTML = seconds ; 
+myCountDown.innerText = seconds;
 
 // gestiamo ogni secondo l'aggiornamento dell'output 
-const clock = setInterval(()=> {
+const clock = setInterval(() => {
 
     // SE siamo alla fine fermiamo il conteggio 
     if (seconds === 0) {
         // blocco la ripetizione temporale
         clearInterval(clock);
+
+        //pulisco il countdown 
+        myCountDown.innerText = "";
+        //nascondo i numeri
+        numberList.classList.add("d-none");
+
+        //nascondo la scritta di memorizzazione dei numeri 
+        instructionsString.classList.add("d-none");
+
+        //faccio apparire answer-form 
+        answerUser.classList.remove("d-none");
+
     } else {
         // decrementiamo seconds
         seconds = seconds - 1;
         // inseriamo output aggiornato secondi
         myCountDown.innerText = seconds;
     }
-}, 1000); 
+}, 1000);
 
 
 
