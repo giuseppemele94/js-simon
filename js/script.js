@@ -26,7 +26,7 @@ numberList.innerHTML = listItems;
 
 
 //variabile di inizio conteggio 
-let seconds = 30;
+let seconds = 10;
 
 //inserisco output aggiornato secondi 
 myCountDown.innerText = seconds;
@@ -58,7 +58,29 @@ const clock = setInterval(() => {
     }
 }, 1000);
 
+//intercetto l'invio del form 
+answerUser.addEventListener("submit", function (e) {
 
+    //blocco il comportamento di default del form 
+    e.preventDefault(); 
+
+    //seleziono tutti gli input presenti nel form 
+    const inputs = answerUser.querySelectorAll("input"); 
+
+    //creo un array che conterrà i numeri inseriti dall'utente 
+    const userNumbers = []; 
+
+    //ciclo tutti gli input 
+    for(let i = 0; i < inputs.length; ++i) {
+
+        // prendo il valore dell'input, lo converto in numero
+        const value = parseInt(inputs[i].value);
+
+        //aggiunto nell'array i numeri dell'utente
+        userNumbers.push(value);
+    }
+    //console.log(userNumbers); 
+});
 
 // funzione per creare un array di numeri univoci
 function getArrRadnomNumInRangeTotEl(minNUm, maxNUm, tot) {
@@ -81,3 +103,4 @@ function getArrRadnomNumInRangeTotEl(minNUm, maxNUm, tot) {
 function genRandomNumInRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
