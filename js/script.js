@@ -29,7 +29,7 @@ numberList.innerHTML = listItems;
 
 
 //variabile di inizio conteggio 
-let seconds = 10;
+let seconds = 30;
 
 //inserisco output aggiornato secondi 
 myCountDown.innerText = seconds;
