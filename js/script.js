@@ -10,6 +10,9 @@ const randomNumber = getArrRadnomNumInRangeTotEl(1, 50, 5);
 //seleziono asnwer-form dove l'utente dovrà inserire i numeri
 const answerUser = document.getElementById("answers-form");
 
+  // seleziono il paragrafo messaggio
+    const message = document.getElementById("message");
+
 // seleziono instructions 
 const instructionsString = document.getElementById("instructions");
 //stringa vuota che conterrà tutti i <li>
@@ -97,6 +100,13 @@ answerUser.addEventListener("submit", function (e) {
         }
     }
     //console.log(guessNumber); 
+    //ouput numeri indovinati 
+    if(guessNumber.length === 0) {
+        message.innerText = "Nessun numero indovinato"; 
+    }else {
+        message.innerText = `Hai indovinato ${guessNumber.length} numeri:  ${guessNumber} `; 
+    }
+
 });
 
 // funzione per creare un array di numeri univoci
