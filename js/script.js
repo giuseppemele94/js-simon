@@ -10,11 +10,12 @@ const randomNumber = getArrRadnomNumInRangeTotEl(1, 50, 5);
 //seleziono asnwer-form dove l'utente dovrà inserire i numeri
 const answerUser = document.getElementById("answers-form");
 
-  // seleziono il paragrafo messaggio
-    const message = document.getElementById("message");
+// seleziono il paragrafo messaggio
+const message = document.getElementById("message");
 
 // seleziono instructions 
 const instructionsString = document.getElementById("instructions");
+
 //stringa vuota che conterrà tutti i <li>
 let listItems = "";
 
@@ -29,7 +30,7 @@ numberList.innerHTML = listItems;
 
 
 //variabile di inizio conteggio 
-let seconds = 30;
+let seconds = 5;
 
 //inserisco output aggiornato secondi 
 myCountDown.innerText = seconds;
@@ -65,46 +66,59 @@ const clock = setInterval(() => {
 answerUser.addEventListener("submit", function (e) {
 
     //blocco il comportamento di default del form 
-    e.preventDefault(); 
+    e.preventDefault();
 
     //seleziono tutti gli input presenti nel form 
-    const inputs = answerUser.querySelectorAll("input"); 
+    const inputs = answerUser.querySelectorAll("input");
 
     //creo un array che conterrà i numeri inseriti dall'utente 
-    const userNumbers = []; 
+    const userNumbers = [];
 
     //ciclo tutti gli input 
-    for(let i = 0; i < inputs.length; ++i) {
+    for (let i = 0; i < inputs.length; ++i) {
 
         // prendo il valore dell'input, lo converto in numero
         const value = parseInt(inputs[i].value);
 
+
+        // controllo: valore non valido (NaN)
+        if (isNaN(value)) {
+            message.innerText = "Inserisci solo numeri validi";
+            return;
+        }
+        //non permetto all'utente di inserire due numeri uguali 
+        // quindi se in userbumbers ho gia inserito un value corrispondente a quello che sto per inserire
+        //lo blocco 
+        if (userNumbers.includes(value)) {
+            message.innerText = "Non puoi inserire numeri duplicati";
+            return;
+        }
         //aggiunto nell'array i numeri dell'utente
         userNumbers.push(value);
     }
     //console.log(userNumbers); 
-    answerUser.reset(); 
+    answerUser.reset();
 
     //devo confrontare userNumbers con random numbers 
     //creo un array che conterrà i numeri indovinati 
-    const guessNumber = []; 
+    const guessNumber = [];
 
     //confronto i numeri inseriti dall'utente con i numeri generati 
-    for(let i = 0; i < userNumbers.length ; ++i) {
+    for (let i = 0; i < userNumbers.length; ++i) {
 
         // se il numero è presente nei numeri casuali 
-        
-        if(randomNumber.includes(userNumbers[i])) {
+
+        if (randomNumber.includes(userNumbers[i])) {
             //lo inserisco nell aarray guessNumber 
-            guessNumber.push(userNumbers[i]); 
+            guessNumber.push(userNumbers[i]);
         }
     }
     //console.log(guessNumber); 
     //ouput numeri indovinati 
-    if(guessNumber.length === 0) {
-        message.innerText = "Nessun numero indovinato"; 
-    }else {
-        message.innerText = `Hai indovinato ${guessNumber.length} numeri:  ${guessNumber} `; 
+    if (guessNumber.length === 0) {
+        message.innerText = "Nessun numero indovinato";
+    } else {
+        message.innerText = `Hai indovinato ${guessNumber.length} numeri:  ${guessNumber} `;
     }
 
 });
@@ -114,9 +128,11 @@ function getArrRadnomNumInRangeTotEl(minNUm, maxNUm, tot) {
 
     const numArr = [];
 
+    //finche la lunghezza del'array è minore di 5, continuo a generare numeri randomici
     while (numArr.length < tot) {
         const randomNum = genRandomNumInRange(minNUm, maxNUm);
 
+        // se nell'array non è stato gia salvato un randomNum , allora salvalo 
         if (!numArr.includes(randomNum)) {
             numArr.push(randomNum);
         }
